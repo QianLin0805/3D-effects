@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+body{background:#fbc73b;}
+body,ul,li,div,p,img{margin:0;padding:0;}
+ul,li{list-style:none;}
+img{border:none;background:none;vertical-align:top;}
+ul{width:1080px;height:500px;margin:50px auto 0;}
+li{width:360px;height:500px;float:left;position:relative;perspective:1600px;-moz-perspective:1600px;-webkit-perspective:1600px;}
+.wrap{width:360px;height:500px;position:absolute;left:0;top:0;transform-style:preserve-3d;-moz-transform-style:preserve-3d;-webkit-transform-style:preserve-3d;}
+.wrap .box{width:260px;height:400px;position:absolute;left:50px;top:50px;transform-style:preserve-3d;
+	-moz-transform-style:preserve-3d;-webkit-transform-style:preserve-3d;
+	transition:all 500ms ease;
+	-moz-transition:all 500ms ease;
+	-webkit-transition:all 500ms ease;
+}
+.wrap .box.active:hover{left:-90px;
+	transform:rotateY(-80deg);
+	-moz-transform:rotateY(-80deg);
+	-webkit-transform:rotateY(-80deg);
+}
+.wrap .box .poster{width:100%;}
+.wrap .box div{width:260px;height:400px;overflow:hidden;background:#f2f2f2;position:absolute;left:260px;top:0;
+	transform:rotateY(90deg);
+	-moz-transform:rotateY(90deg);
+	-webkit-transform:rotateY(90deg);
+	transform-origin:left;
+	-moz-transform-origin:left;
+	-webkit-transform-origin:left;
+}
+.wrap .box div img{width:100%;}
+.wrap .box div p{color:#666;font:14px Arail;padding:10px 10px 0;}
+</style>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="hoverDelay.js"></script>
+</head>
+<body>
+<ul>
+	<li>
+        <div class="wrap">
+            <div class="box">
+                <img src="images/poster01.jpg" alt="" class="poster" />
+                <div>
+                    <img src="images/still01.jpg" alt="" />
+                    <p>In Bedford Falls, New York on Christmas Eve, George Bailey is deeply troubled. Prayers for his well-being from friends and family reach Heaven. Clarence Odbody, Angel Second Class, is assigned to visit Earth to save George, thereby earning his wings. Franklin and Joseph, the head angels, review George's life with Clarence.</p>
+                </div>
+            </div>
+        </div>
+    </li>
+	<li>
+        <div class="wrap">
+            <div class="box">
+                <img src="images/poster02.jpg" alt="" class="poster" />
+                <div>
+                    <img src="images/still02.jpg" alt="" />
+                    <p>A cattle baron takes in an orphaned boy and raises him, causing his own son to resent the boy. As they get older the resentment festers into hatred, and eventually the real son frames his stepbrother for fathering an illegitimate child that is actually his.</p>
+                </div>
+            </div>
+        </div>
+    </li>
+	<li>
+        <div class="wrap">
+            <div class="box">
+                <img src="images/poster03.jpg" alt="" class="poster" />
+                <div>
+                    <img src="images/still03.jpg" alt="" />
+                    <p>The Tramp travels to the Yukon to take part in the Klondike Gold Rush. He gets mixed up with some burly characters and falls in love with the beautiful Georgia. He tries to win her heart with his singular charm.</p>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+	$(".box").hoverDelay({
+		hoverDuring: 120,
+		outDuring: 120,
+		hoverEvent: function(){
+			$(".box").addClass('active');
+		},
+		outEvent: function(){
+			$(".box").removeClass('active'); 
+		}
+	});
+});
+</script>

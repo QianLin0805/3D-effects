@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<script type="text/javascript" src="jquery.js"></script>
+<style>
+    body{
+        font: 14px "Microsoft YaHei";
+        margin: 0;
+        padding: 0;
+        background: #111;
+    }
+    div,p{
+        margin: 0;
+        padding: 0;
+    }
+    .stage{
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        perspective: 1000px;
+        -moz-perspective: 1000px;
+        -webkit-perspective: 1000px;
+        perspective-origin: 50% 30%;
+        -moz-perspective-origin: 50% 25%;
+        -webkit-perspective-origin: 50% 25%;
+    }
+    .wrap{
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
+    }
+    img{
+        position: absolute;
+        left:50%;
+        bottom: 55%;
+        width: 150px;
+        background: #abc;
+        margin: -100px 0 0 -100px;
+        cursor: pointer;
+        transform-origin: center center;
+        -moz-transform-origin: center center;
+        -webkit-transform-origin: center center;
+        -webkit-box-reflect: below 8px -webkit-linear-gradient(top,rgba(0,0,0,0) 65%,rgba(0,0,0,.35));
+    }
+</style>
+</head>
+<body>
+	<div class="stage">
+        <div class="wrap">
+            <img src="images/face_01.jpg" alt="" />
+            <img src="images/face_02.jpg" alt="" />
+            <img src="images/face_03.jpg" alt="" />
+            <img src="images/face_04.jpg" alt="" />
+            <img src="images/face_05.jpg" alt="" />
+            <img src="images/face_06.jpg" alt="" />
+            <img src="images/face_07.jpg" alt="" />
+            <img src="images/face_08.jpg" alt="" />
+            <img src="images/face_09.jpg" alt="" />
+            <img src="images/face_10.jpg" alt="" />
+        </div>
+    </div>
+<script type="text/javascript">
+    var delay = $.Deferred();
+    for(var i=0;i<10;i++){
+        (function (i) {
+            function slide() {
+                var img = $('img').eq(i);
+                var angle = (9 - i) * 36;
+                var unit = angle / 40;
+                var unit2 = 350 / 40;
+                var k = 1;
+                function rotate() {
+                    setTimeout(function () {
+                        if (k <= 40) {
+                            img.css('transform', 'rotateY(' + unit * k + 'deg) rotateX(-5deg) translateZ(' + unit2 * k + 'px)');
+                            k++;
+                            rotate();
+                        }else{
+                            if(i == 9){
+                                delay.resolve();
+                            }
+                        }
+                    },(1000-i*50)/40);
+                }
+                setTimeout(function () {
+                    rotate();
+                },i*100);
+            }
+            return slide();
+        })(i);
+    }
+
+    var j = 0;
+    function round() {
+        if(j < 358){
+            j += 2;
+        }else{
+            j = 0;
+        }
+        $('.wrap').css('transform','rotateY('+j+'deg)');
+    }
+    var timer = setInterval(round,50);
+
+    /*var k = 0.5/180;
+    function opacitySlide() {
+        for(var i=0;i<10;i++){
+            var img = $('img').eq(i);
+            var opacity = parseFloat(img.css('opacity'));
+            if(36*i>=180){
+                var p = 360 - 36*i;
+                if(j>p && j<p+180){
+                    img.css('opacity',opacity - k);
+                }else{
+                    img.css('opacity',opacity + k);
+                }
+            }else{
+                var p = 36*i;
+                if(j>180-p && j<360-p){
+                    img.css('opacity',opacity + k);
+                }else{
+                    img.css('opacity',opacity - k);
+                }
+            }
+        }
+    }
+    var timer2;
+    var value = [0.9,0.8,0.7,0.6,0.5,0.6,0.7,0.8,0.9,1];
+    setTimeout(function () {
+        for(var i=0;i<10;i++){
+            $('img').eq(i).css('opacity',value[i]);
+        }
+        timer2 = setInterval(opacitySlide,50);
+    },1000);*/
+
+    delay.done(function () {
+        var stop = false;
+        $('img').on('click',function () {
+            if(!stop){
+                stop = true;
+                clearInterval(timer);
+                //clearInterval(timer2);
+            }else{
+                stop = false;
+                timer = setInterval(round,50);
+                //timer2 = setInterval(opacitySlide,50);
+            }
+        });
+    });
+</script>
+</body>
+</html>
